@@ -327,7 +327,8 @@ class AbstractAccessToken(models.Model):
         Convenience method to uniform tokens" interface, for now
         simply remove this token from the database in order to revoke it.
         """
-        self.delete()
+        if self.is_expired():
+            self.delete()
 
     @property
     def scopes(self):
